@@ -1,0 +1,12 @@
+createdir.sh
+deleteall.sh
+docker-compose.override.yml
+mysql/
+src/labmine/__pycache__/
+src/webapi/__pycache__/
+src/account/migrations/__pycache__/
+*.pyc
+src/media/
+
+# Mac OSX
+.DS_Store
