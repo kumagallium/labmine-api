@@ -24,4 +24,4 @@ Under construction
 5. Create a new Pull Request
 
 ## License
-Labmine is developed and maintained by Masaya Kumagai, under [BSD 2-Clause "Simplified" License](LICENSE.txt).
+Labmine is developed and maintained by Masaya Kumagai, under [MIT License](LICENSE).
