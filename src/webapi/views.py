@@ -753,7 +753,7 @@ def filterjson(jsontext):
 
         df_json_con = df_json[df_json["type"]=="draw2d.Connection"].dropna(axis=1).copy()
         if len(df_json_con) > 0:
-            filtercols = ['id', 'type', 'alpha', 'color', 'cssClass','userData', 'draggable', 'selectable', 'policy', 'router', 'source','target']
+            filtercols = ['id', 'type', 'alpha', 'color', 'cssClass','userData', 'draggable', 'selectable', 'policy', 'router', 'source','target','vertex','routingMetaData']
             df_json_con = df_json_con[filtercols]
             dictcon = df_json_con.to_dict(orient='records')
             dictfig.extend(dictcon)
