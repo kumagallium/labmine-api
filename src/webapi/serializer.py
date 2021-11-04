@@ -67,7 +67,7 @@ class ExperimentSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(max_length=255, validators=[UniqueValidator(queryset=Experiment.objects.all())])
     blueprint =  serializers.CharField(max_length=255)
-    #blueprint_id = serializers.CharField(source='blueprint.pk', read_only=True)
+    blueprint_id = serializers.CharField(source='blueprint.pk', read_only=True)
 
     def create(self, validated_data):
         blueprint = Blueprint.objects.get(id=validated_data['blueprint'])
