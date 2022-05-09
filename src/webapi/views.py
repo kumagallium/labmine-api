@@ -881,7 +881,7 @@ def entity(request,blueprintid, boxid):
 def entities(request,blueprintid):
 
     if request.method == 'GET':
-        entities = Entity.objects.prefetch_related("node")
+        entities = Entity.objects.filter(blueprint_id=blueprintid).prefetch_related("node")
         entities_list = serializers.serialize('json', entities)
         response = []
         for entity in json.loads(entities_list):
