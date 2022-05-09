@@ -30,6 +30,7 @@ urlpatterns = [
 
     path('blueprints/', views.blueprint, name='blueprint'),
     path('blueprints/<int:blueprintid>', views.blueprint_detail, name='blueprint_detail'),
+    path('blueprints/<int:blueprintid>/boxes/', views.entities, name='entities'),
     path('blueprints/<int:blueprintid>/boxes/<str:boxid>', views.entity, name='entity'),
 
     path('templates/', views.templates, name='templates'),

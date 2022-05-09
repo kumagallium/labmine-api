@@ -875,6 +875,23 @@ def entity(request,blueprintid, boxid):
         else:
             return Response([])
 
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+@authentication_classes((JWTTokenUserAuthentication,))
+def entities(request,blueprintid):
+
+    if request.method == 'GET':
+        entities = Entity.objects.prefetch_related("node")
+        entities_list = serializers.serialize('json', entities)
+        response = []
+        for entity in json.loads(entities_list):
+            node_id = entity["fields"]["node"]
+            node_name = Node.objects.get(id=int(node_id)).node_name
+            entity["fields"]["node_name"] = node_name
+            response.append(entity)
+
+        return Response(response)
+
 ######################################
 ############## Template ###############
 ######################################
