@@ -25,7 +25,7 @@ MEDIA_URL = '/api/media/'
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False#True
+DEBUG = True#True
 
 ALLOWED_HOSTS = ["*"]
 

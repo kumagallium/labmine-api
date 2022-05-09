@@ -475,7 +475,7 @@ def ucheck(unit):
 
 def convert2si(value,unit):
     result = ucheck(unit)
-    mgnitude = Q(value,unit).to_base_units().magnitude
+    mgnitude = result["si_value"]
     if result["si"]:
         siunit = unit
     else:
@@ -607,8 +607,18 @@ def quantities(request):
                 
                 if baseflag == 0:
                     mag, baseunit = convert2si(1,unit.symbol)
-                    baseunit = Unit.objects.create(symbol=baseunit, base=True, editor=editor)
-                    Quantity.objects.create(property=prop,unit=baseunit,editor=editor)
+                    
+                    units_tmp = Unit.objects.filter(symbol=baseunit)
+                    if len(units_tmp)>0:
+                        baseunit_obj = Unit.objects.get(symbol=baseunit)
+                        baseunit_obj.symbol = baseunit
+                        baseunit_obj.base = True
+                        baseunit_obj.save()
+                    else:
+                        baseunit_obj = Unit.objects.create(
+                            symbol=baseunit,
+                            base=True,editor=editor)
+                        Quantity.objects.create(property=prop,unit=baseunit_obj,editor=editor)
 
                 response = qobjects
 
