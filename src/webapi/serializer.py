@@ -35,7 +35,7 @@ class BlueprintSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         blueprint = Blueprint.objects.create(
-            flowdata=validated_data['flowdata'],
+            flowdata=self.context['flowdata'],
             editor_id=self.context['request'].user.id)
         return blueprint
 

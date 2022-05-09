@@ -792,7 +792,7 @@ def blueprint(request):
         return Response(response)
     elif request.method == 'POST':
         #nodeids = list(set(request.POST.getlist("nodeids")))
-        request.data['flowdata'] = filterjson(request.data['flowdata'])
+        context['flowdata'] = filterjson(request.data['flowdata'])
         serializer = BlueprintSerializer(data=request.data, context=context)
         if serializer.is_valid():
             blueprint=serializer.save()
