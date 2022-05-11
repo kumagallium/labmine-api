@@ -596,6 +596,7 @@ def quantities(request):
                 editor = prop.editor
                 if len(Quantity.objects.filter(property=prop,unit=unit)) <= 0:
                     Quantity.objects.create(property=prop,unit=unit,editor=editor)
+                response = Quantity.objects.filter(property=prop,unit=unit).values()
 
                 qobjects = Quantity.objects.filter(property=prop).values()
                 baseflag = 0
@@ -619,8 +620,6 @@ def quantities(request):
                             symbol=baseunit,
                             base=True,editor=editor)
                         Quantity.objects.create(property=prop,unit=baseunit_obj,editor=editor)
-
-                response = qobjects
 
                 return Response(response)
             else:
@@ -1100,7 +1099,10 @@ def data(request,entityid):
         return Response(response)
     elif request.method == 'POST':
         data_tmp = request.data
-        rawdata  = data_tmp["data"]["rawdata"]
+        if type(data_tmp["data"]) == str:
+            rawdata = eval(data_tmp["data"])["rawdata"]
+        else:
+            rawdata  = data_tmp["data"]["rawdata"]
         datasize = len(rawdata)
         unit_x_id  = data_tmp["unit_x"]
         unit_y_id  = data_tmp["unit_y"]
