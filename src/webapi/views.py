@@ -704,14 +704,25 @@ def unit_detail(request,unitid):
 ######################################
 ############### Figure ###############
 ######################################
-@api_view(['POST'])
+@api_view(['GET','POST'])
 @permission_classes((IsAuthenticated, ))
 @authentication_classes((JWTTokenUserAuthentication,))
 def figures(request):
     context = {
         "request": request
     }
-    if request.method == 'POST':
+    if request.method == 'GET':
+        figures = Figure.objects.prefetch_related("editor")
+        figure_list = serializers.serialize('json', figures)
+        response = []
+        for figure in json.loads(figure_list):
+            editor_id = figure["fields"]["editor"]
+            editor = User.objects.get(id=int(editor_id)).username
+            figure["fields"]["editor"] = editor
+            response.append(figure)
+
+        return Response(response)
+    elif request.method == 'POST':
         serializer = FigureSerializer(data=request.data, context=context)
         if serializer.is_valid():
             serializer.save()
@@ -1368,7 +1379,9 @@ def descriptions(request,entityid,itemid):
         item = Item.objects.get(pk=itemid)
 
         if "values" in request.data.keys():
-            values = request.data['values']
+            values = request.data["values"]
+            if type(values) == str:
+                values = values.split(",")
         else:
             values = []
         if "cluster" in request.data.keys():
