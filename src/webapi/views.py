@@ -1383,7 +1383,7 @@ def descriptions(request,entityid,itemid):
         if "values" in request.data.keys():
             values = request.data["values"]
             if type(values) == str:
-                values = values.split(",")
+                values = request.POST.getlist("values")
         else:
             values = []
         if "cluster" in request.data.keys():
