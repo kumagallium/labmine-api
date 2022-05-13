@@ -1113,16 +1113,25 @@ def data(request,entityid):
         basedata = []
         if datasize > 0:
             xunit_symbol = Unit.objects.filter(id=unit_x_id).values_list("symbol", flat=True)[0]
-            xdata = [Q(xd,xunit_symbol).to_base_units().magnitude for xd in rawdata[0]]
-            basedata.append(xdata)
+            if xunit_symbol != "-":
+                xdata = [Q(xd,xunit_symbol).to_base_units().magnitude for xd in rawdata[0]]
+                basedata.append(xdata)
+            else:
+                basedata.append(rawdata[0])
         if datasize > 1:
             yunit_symbol = Unit.objects.filter(id=unit_y_id).values_list("symbol", flat=True)[0]
-            ydata = [Q(yd,yunit_symbol).to_base_units().magnitude for yd in rawdata[1]]
-            basedata.append(ydata)
+            if yunit_symbol != "-":
+                ydata = [Q(yd,yunit_symbol).to_base_units().magnitude for yd in rawdata[1]]
+                basedata.append(ydata)
+            else:
+                basedata.append(rawdata[1])
         if datasize > 2:
             zunit_symbol = Unit.objects.filter(id=unit_z_id).values_list("symbol", flat=True)[0]
-            zdata = [Q(zd,zunit_symbol).to_base_units().magnitude for zd in rawdata[2]]
-            basedata.append(zdata)
+            if zunit_symbol != "-":
+                zdata = [Q(zd,zunit_symbol).to_base_units().magnitude for zd in rawdata[2]]
+                basedata.append(zdata)
+            else:
+                basedata.append(rawdata[2])
         
         context["basedata"] = basedata
 
