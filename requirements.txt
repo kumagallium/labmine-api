@@ -18,7 +18,7 @@ mysqlclient==1.4.2.post1
 numpy==1.20.1
 packaging==20.9
 pandas==1.2.2
-Pillow==8.1.0
+Pillow==13.0.0
 Pint==0.16.1
 Pygments==2.8.0
 PyJWT==2.0.1
