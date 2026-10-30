@@ -6,7 +6,7 @@ Django==2.2.1
 django-cleanup==5.1.0
 django-cors-headers==3.7.0
 django-mysql==3.11.1
-djangorestframework==3.9.4
+djangorestframework==3.18.2
 djangorestframework-simplejwt==4.6.0
 idna==2.10
 importlib-metadata==3.4.0
